@@ -1,7 +1,6 @@
 !function (n, t) {
   'object' === typeof exports && 'undefined' !== typeof module ? module.exports = t() : 'function' == typeof define && define.amd ? define(t) : (n = n || self).getSecuritySign = t()
-}
-(this,
+}(this,
   function () {
     'use strict'
     var n = function () {

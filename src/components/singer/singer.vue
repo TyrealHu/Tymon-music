@@ -34,12 +34,6 @@ export default {
     },
     _getSingerList() {
       this.result = getSingerList()
-      this._sortSingerList()
-    },
-    _sortSingerList() {
-      this.result.sort((a, b) => {
-        return Number(a.id) - Number(b.id)
-      })
     },
     handlePlaylist(playlist) {
       let bottom = playlist.length ? '60px' : ''

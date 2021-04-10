@@ -51,6 +51,13 @@ export function getSingerList() {
       result.push(list)
     })
   }
+  return _sortSingerList(result)
+}
+
+function _sortSingerList(result) {
+  result.sort((a, b) => {
+    return Number(a.id) - Number(b.id)
+  })
   return result
 }
 
@@ -167,6 +174,6 @@ function formatSingerList(data) {
   }
   result['title'] = tag
   result['id'] = index
-  result['items'] = newSingerList
+  result['items'] = newSingerList.slice(0, 15)
   return result
 }

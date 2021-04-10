@@ -6,7 +6,7 @@
         <uL>
           <li @click="selectSinger(item)" v-for="(item,index) in data[index].items" :key="index" class="list-group-item">
             <img class="avatar" :src="item.avatar" v-if="group.title === '热门' && index < 10">
-            <img class="avatar" src="src/common/image/default.png" v-else>
+            <img class="avatar" v-lazy="'dist/static/img/default.712b6ae.png'" v-else>
             <span class="name">{{item.name}}</span>
           </li>
         </uL>
@@ -23,7 +23,7 @@
     <div class="list-fixed" ref="fixedTitle" v-show="fixedTitle">
       <h1 class="fixed-title">{{fixedTitle}}</h1>
     </div>
-    <div class="loading-container" v-show="!data.length">
+    <div class="loading-container" v-show="data.length === 0">
       <loading></loading>
     </div>
   </scroll>
@@ -32,6 +32,7 @@
 import Scroll from 'base/scroll/scroll'
 import { getData } from 'common/js/dom'
 import Loading from 'base/loading/loading'
+import {tagsIndex} from 'api/config'
 
 const TITLE_HEIGHT = 30
 const ANCHOR_HEIGHT = 18
@@ -60,15 +61,16 @@ export default {
     return {
       currentIndex: 0,
       scrollY: -1,
-      diff: -1
+      diff: -1,
+      shortcutList: []
     }
   },
+  mounted() {
+    this.shortcutList = tagsIndex.map((item) => {
+      return item.charAt(0)
+    })
+  },
   computed: {
-    shortcutList() {
-      return this.data.map(item => {
-        return item.title.slice(0, 1)
-      })
-    },
     fixedTitle() {
       if (this.scrollY > 0) {
         return
